@@ -1,0 +1,20 @@
+[project]
+name = "shap-interpretability-notebook"
+version = "0.1.0"
+description = "Notebook environment for the SHAP interpretability masterclass"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "jupyterlab",
+  "notebook",
+  "matplotlib",
+  "numpy",
+  "pandas",
+  "scikit-learn",
+  "seaborn",
+  "shap",
+  "xgboost",
+]
+
+[tool.uv]
+package = false
