@@ -8,3 +8,4 @@ __pycache__/
 allfiles/_extracted_preview/
 uv.lock
 generate_slides.py
+slides/OLD/
