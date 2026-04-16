@@ -3,6 +3,7 @@ marp: true
 theme: default
 paginate: true
 html: true
+math: mathjax
 style: |
   @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
@@ -176,16 +177,35 @@ footer: 'Model Interpretability with SHAP · Beginner Masterclass'
 
 # A 98% accurate model can still be wrong
 
-<div style="display:flex;gap:20px;margin-top:12px;align-items:stretch;">
-  <div style="flex:1;background:#252540;border:1px solid #2E2E50;border-left:3px solid #FF6745;border-radius:10px;padding:16px 20px;">
-    <div style="font-family:'Work Sans';font-weight:700;font-size:0.55em;text-transform:uppercase;letter-spacing:0.12em;color:#FF6745;margin-bottom:8px;">The classic story</div>
-    <p style="font-size:0.78em;color:#B0AFCC;line-height:1.55;margin:0;">A wolf vs. husky classifier reaches <strong>98% accuracy</strong>. Great model?</p>
-    <p style="font-size:0.78em;color:#E8E7E1;line-height:1.55;margin-top:10px;">When researchers opened the black box, the model was looking at <em>the snow in the background</em>, not the animal.</p>
+<div style="display:flex;gap:18px;margin-top:8px;align-items:stretch;">
+  <div style="flex:0 0 200px;background:#252540;border:1px solid #2E2E50;border-radius:10px;padding:10px;display:flex;align-items:center;justify-content:center;">
+    <svg viewBox="0 0 200 160" width="100%" height="140">
+      <rect x="0" y="0" width="200" height="160" fill="#E8E7E1" rx="6"/>
+      <circle cx="30" cy="30" r="3" fill="#FFFFFF"/><circle cx="80" cy="20" r="3" fill="#FFFFFF"/><circle cx="150" cy="35" r="3" fill="#FFFFFF"/><circle cx="180" cy="70" r="3" fill="#FFFFFF"/><circle cx="20" cy="80" r="3" fill="#FFFFFF"/><circle cx="170" cy="110" r="3" fill="#FFFFFF"/>
+      <path d="M 0 130 Q 100 115 200 130 L 200 160 L 0 160 Z" fill="#FFFFFF"/>
+      <ellipse cx="100" cy="115" rx="38" ry="22" fill="#6B6A8A"/>
+      <circle cx="70" cy="95" r="16" fill="#6B6A8A"/>
+      <polygon points="60,82 65,72 72,85" fill="#6B6A8A"/>
+      <polygon points="78,82 73,72 68,85" fill="#6B6A8A"/>
+      <circle cx="65" cy="97" r="1.5" fill="#FFFFFF"/>
+      <circle cx="72" cy="97" r="1.5" fill="#FFFFFF"/>
+      <polygon points="58,100 62,102 58,104" fill="#1A1A33"/>
+      <rect x="128" y="108" width="3" height="20" fill="#6B6A8A"/>
+      <rect x="88" y="125" width="3" height="18" fill="#6B6A8A"/>
+      <rect x="108" y="125" width="3" height="18" fill="#6B6A8A"/>
+      <rect x="8" y="8" width="184" height="104" fill="none" stroke="#FF6745" stroke-width="2" stroke-dasharray="5,3" rx="4"/>
+      <text x="14" y="22" font-family="Work Sans" font-size="9" font-weight="700" fill="#FF6745">← the model looks HERE</text>
+    </svg>
   </div>
-  <div style="flex:1;background:#252540;border:1px solid #2E2E50;border-left:3px solid #DDFF45;border-radius:10px;padding:16px 20px;">
-    <div style="font-family:'Work Sans';font-weight:700;font-size:0.55em;text-transform:uppercase;letter-spacing:0.12em;color:#DDFF45;margin-bottom:8px;">The lesson</div>
-    <p style="font-size:0.78em;color:#B0AFCC;line-height:1.55;margin:0;">High accuracy is <strong>not enough</strong>. We also need to know <em>why</em> a model decides what it decides.</p>
-    <p style="font-size:0.78em;color:#E8E7E1;line-height:1.55;margin-top:10px;">Interpretability is the bridge between performance and <strong>trust</strong>.</p>
+  <div style="flex:1;display:flex;flex-direction:column;gap:10px;">
+    <div style="background:#252540;border:1px solid #2E2E50;border-left:3px solid #FF6745;border-radius:10px;padding:12px 16px;">
+      <div style="font-family:'Work Sans';font-weight:700;font-size:0.5em;text-transform:uppercase;letter-spacing:0.12em;color:#FF6745;margin-bottom:6px;">The classic story</div>
+      <p style="font-size:0.72em;color:#E8E7E1;line-height:1.5;margin:0;">A wolf vs. husky classifier reaches <strong>98% accuracy</strong>. Great model? It actually looks at <em>the snow in the background</em>, not the animal.</p>
+    </div>
+    <div style="background:#252540;border:1px solid #2E2E50;border-left:3px solid #DDFF45;border-radius:10px;padding:12px 16px;">
+      <div style="font-family:'Work Sans';font-weight:700;font-size:0.5em;text-transform:uppercase;letter-spacing:0.12em;color:#DDFF45;margin-bottom:6px;">The lesson</div>
+      <p style="font-size:0.72em;color:#E8E7E1;line-height:1.5;margin:0;">High performance is <strong>not enough</strong>. Interpretability is the bridge between performance and <strong>trust</strong>.</p>
+    </div>
   </div>
 </div>
 
@@ -303,7 +323,9 @@ footer: 'Model Interpretability with SHAP · Beginner Masterclass'
   </div>
 </div>
 
-<br>
+<div style="background:rgba(0,229,238,0.07);border:1px solid #00E5EE;border-radius:8px;padding:8px 14px;margin-top:10px;font-size:0.66em;color:#E8E7E1;">
+<strong style="color:#00E5EE;">In the notebook →</strong> <code>DecisionTreeClassifier(max_depth=3, random_state=42)</code> — depth 3 to stay readable.
+</div>
 
 *The feature at the root is the strongest first separator in the data.*
 
@@ -357,8 +379,12 @@ footer: 'Model Interpretability with SHAP · Beginner Masterclass'
 
 <br>
 
-<div style="background:rgba(255,103,69,0.08);border:1px solid #FF6745;border-radius:10px;padding:12px 18px;font-size:0.72em;color:#E8E7E1;">
+<div style="background:rgba(255,103,69,0.08);border:1px solid #FF6745;border-radius:10px;padding:10px 16px;font-size:0.7em;color:#E8E7E1;">
 ⚠ When a sensitive feature like <em>gender_Female</em> appears important, that's a signal to <strong>audit</strong> the model — not to essentialize people.
+</div>
+
+<div style="background:rgba(0,229,238,0.07);border:1px solid #00E5EE;border-radius:8px;padding:8px 14px;margin-top:8px;font-size:0.65em;color:#E8E7E1;">
+<strong style="color:#00E5EE;">In the notebook →</strong> <code>tree_clf.feature_importances_</code> for the tree · <code>pipeline['logistic_regression'].coef_[0]</code> for logistic regression (with <code>StandardScaler</code> upstream so coefficients are comparable).
 </div>
 
 ---
@@ -414,7 +440,11 @@ footer: 'Model Interpretability with SHAP · Beginner Masterclass'
 
 <div style="background:linear-gradient(135deg,rgba(255,103,69,0.12),rgba(118,87,255,0.08));border:1px solid #FF6745;border-radius:12px;padding:16px 22px;">
   <div style="font-family:'Work Sans';font-weight:700;font-size:0.5em;text-transform:uppercase;letter-spacing:0.18em;color:#FF6745;margin-bottom:6px;">The problem</div>
-  <p style="font-size:0.8em;color:#E8E7E1;margin:0;line-height:1.5;">Better performance → less readable. No single tree to look at. No coefficient table. Reasoning is <strong>distributed across hundreds of trees</strong>.</p>
+  <p style="font-size:0.78em;color:#E8E7E1;margin:0;line-height:1.5;">Better performance → less readable. No single tree to look at. No coefficient table. Reasoning is <strong>distributed across hundreds of trees</strong>.</p>
+</div>
+
+<div style="background:rgba(0,229,238,0.07);border:1px solid #00E5EE;border-radius:8px;padding:8px 14px;margin-top:8px;font-size:0.65em;color:#E8E7E1;">
+<strong style="color:#00E5EE;">In the notebook →</strong> <code>xgb.XGBClassifier(eval_metric='logloss', random_state=42)</code> — 100 trees by default, <code>max_depth=6</code>. This is the model we'll explain with SHAP.
 </div>
 
 ---
@@ -491,7 +521,7 @@ baseline prediction (expected value)
     <div style="min-width:34px;height:34px;border-radius:50%;background:#DDFF45;display:flex;align-items:center;justify-content:center;font-family:'Work Sans';font-weight:700;font-size:0.75em;color:#1A1A33;flex-shrink:0;">2</div>
     <div>
       <div style="font-family:'Work Sans';font-weight:600;font-size:0.76em;color:#E8E7E1;">Create the explainer</div>
-      <div style="font-size:0.68em;color:#B0AFCC;margin-top:2px;"><code>explainer = shap.TreeExplainer(model, data=X_train, model_output="probability")</code></div>
+      <div style="font-size:0.66em;color:#B0AFCC;margin-top:2px;"><code>explainer = shap.TreeExplainer(xgb_model, data=X_train, model_output="probability")</code> · <code>data=X_train</code> is the <em>background set</em> — the mean prediction over it becomes the expected value.</div>
     </div>
   </div>
   <div style="display:flex;align-items:flex-start;gap:16px;">
@@ -546,33 +576,28 @@ person 3          +0.02       -0.01       -0.05
 
 ### The baseline
 
-# What is the expected value?
+# Expected value = average prediction
 
-<div style="background:#252540;border:1px solid #2E2E50;border-radius:12px;padding:16px 22px;margin-top:6px;">
-<pre style="background:none;border:none;padding:0;margin:0;font-size:0.75em;color:#E8E7E1;">
-background data
-      ↓
-model predicts many probabilities
-      ↓
-average baseline = <span style="color:#FF6745;font-weight:600;">expected_value</span>
-</pre>
+<div style="background:linear-gradient(135deg,rgba(255,103,69,0.12),rgba(118,87,255,0.08));border:1px solid #FF6745;border-radius:12px;padding:14px 20px;margin-top:4px;">
+  <p style="font-family:'Work Sans';font-weight:500;font-size:0.82em;color:#E8E7E1;margin:0;line-height:1.5;">
+  The <strong>expected value</strong> is simply the <em>model's average prediction</em> over the background data — <code>E[f(X)] = np.mean(model.predict(X_background))</code>.
+  </p>
 </div>
 
-<div style="margin-top:12px;font-size:0.74em;color:#B0AFCC;line-height:1.7;">
-
-```text
-expected_value + Σ shap_values[person] = model_prediction[person]
-```
-
+<div style="display:flex;gap:16px;margin-top:12px;">
+  <div style="flex:1;background:#252540;border:1px solid #2E2E50;border-radius:10px;padding:12px 16px;">
+    <div style="font-family:'Work Sans';font-weight:700;font-size:0.5em;text-transform:uppercase;letter-spacing:0.14em;color:#DDFF45;margin-bottom:8px;">Census example · binary</div>
+    <pre style="background:none;border:none;padding:0;margin:0;font-size:0.68em;color:#E8E7E1;line-height:1.55;">model.predict_proba(X_train)[:,1].mean()
+<span style="color:#FF6745;">≈ 0.24</span>  ← expected_value
+(~24% earn >50K in X_train)</pre>
+  </div>
+  <div style="flex:1;background:#252540;border:1px solid #2E2E50;border-radius:10px;padding:12px 16px;font-size:0.7em;color:#B0AFCC;line-height:1.6;">
+    <strong>How to read it</strong> — before seeing <em>one</em> person's features, the model would start from <strong>0.24</strong>. SHAP values measure the distance between this average and the <em>actual</em> prediction for that person.
+  </div>
 </div>
 
-<div style="display:flex;gap:14px;margin-top:10px;">
-  <div style="flex:1;background:rgba(255,103,69,0.08);border:1px solid #FF6745;border-radius:8px;padding:10px 14px;font-size:0.68em;color:#E8E7E1;">
-    <strong>Not</strong> the probability for one person
-  </div>
-  <div style="flex:1;background:rgba(221,255,69,0.08);border:1px solid #DDFF45;border-radius:8px;padding:10px 14px;font-size:0.68em;color:#E8E7E1;">
-    <em>Shared starting point</em> for every explanation
-  </div>
+<div style="background:#252540;border:1px solid #2E2E50;border-radius:8px;padding:10px 16px;margin-top:10px;font-size:0.72em;color:#E8E7E1;">
+<code>expected_value + Σ shap_values[person] = model.predict_proba(person)</code>
 </div>
 
 ---
@@ -581,25 +606,43 @@ expected_value + Σ shap_values[person] = model_prediction[person]
 
 # The bar plot — what matters on average
 
-```text
-capital-gain        ████████████████  0.18
-marital_Married     ████████████      0.12
-educational-num     ████████          0.08
-hours-per-week      ██████            0.06
-age                 █████             0.05
-```
+<svg width="100%" height="180" viewBox="0 0 560 180" style="margin-top:4px;">
+  <text x="0" y="14" font-family="Inter" font-size="10" fill="#B0AFCC">capital-gain</text>
+  <rect x="130" y="4" width="360" height="14" rx="3" fill="#2E2E50"/>
+  <rect x="130" y="4" width="320" height="14" rx="3" fill="#FF6745"/>
+  <text x="456" y="14" font-family="Work Sans" font-size="10" font-weight="700" fill="#FF6745">0.18</text>
 
-<br>
+  <text x="0" y="42" font-family="Inter" font-size="10" fill="#B0AFCC">marital_Married</text>
+  <rect x="130" y="32" width="360" height="14" rx="3" fill="#2E2E50"/>
+  <rect x="130" y="32" width="240" height="14" rx="3" fill="#DDFF45"/>
+  <text x="376" y="42" font-family="Work Sans" font-size="10" font-weight="700" fill="#DDFF45">0.12</text>
 
-<div style="display:flex;gap:16px;margin-top:4px;">
-  <div style="flex:1;background:#252540;border:1px solid #2E2E50;border-radius:8px;padding:10px 14px;font-size:0.7em;color:#B0AFCC;">
-    Each bar = <strong>mean absolute SHAP value</strong>
+  <text x="0" y="70" font-family="Inter" font-size="10" fill="#B0AFCC">educational-num</text>
+  <rect x="130" y="60" width="360" height="14" rx="3" fill="#2E2E50"/>
+  <rect x="130" y="60" width="160" height="14" rx="3" fill="#00E5EE"/>
+  <text x="296" y="70" font-family="Work Sans" font-size="10" font-weight="700" fill="#00E5EE">0.08</text>
+
+  <text x="0" y="98" font-family="Inter" font-size="10" fill="#B0AFCC">hours-per-week</text>
+  <rect x="130" y="88" width="360" height="14" rx="3" fill="#2E2E50"/>
+  <rect x="130" y="88" width="120" height="14" rx="3" fill="#7657FF"/>
+  <text x="256" y="98" font-family="Work Sans" font-size="10" font-weight="700" fill="#7657FF">0.06</text>
+
+  <text x="0" y="126" font-family="Inter" font-size="10" fill="#B0AFCC">age</text>
+  <rect x="130" y="116" width="360" height="14" rx="3" fill="#2E2E50"/>
+  <rect x="130" y="116" width="100" height="14" rx="3" fill="#C445FF"/>
+  <text x="236" y="126" font-family="Work Sans" font-size="10" font-weight="700" fill="#C445FF">0.05</text>
+
+  <line x1="130" y1="148" x2="490" y2="148" stroke="#2E2E50" stroke-width="1"/>
+  <text x="128" y="164" font-family="Inter" font-size="9" fill="#6B6A8A" text-anchor="end">0</text>
+  <text x="490" y="164" font-family="Inter" font-size="9" fill="#6B6A8A" text-anchor="end">mean |SHAP| →</text>
+</svg>
+
+<div style="display:flex;gap:14px;margin-top:2px;">
+  <div style="flex:1;background:#252540;border:1px solid #2E2E50;border-radius:8px;padding:8px 12px;font-size:0.66em;color:#B0AFCC;">
+    Each bar = <strong>mean |SHAP|</strong> — influence with no direction
   </div>
-  <div style="flex:1;background:#252540;border:1px solid #2E2E50;border-radius:8px;padding:10px 14px;font-size:0.7em;color:#B0AFCC;">
-    Longer bar = <em>more influence on average</em>
-  </div>
-  <div style="flex:1;background:rgba(255,103,69,0.08);border:1px solid #FF6745;border-radius:8px;padding:10px 14px;font-size:0.7em;color:#E8E7E1;">
-    ⚠ Ranks features — <strong>does not</strong> show direction
+  <div style="flex:1;background:rgba(255,103,69,0.08);border:1px solid #FF6745;border-radius:8px;padding:8px 12px;font-size:0.66em;color:#E8E7E1;">
+    ⚠ Ranks features — <strong>does not</strong> say whether they push toward ≤50K or >50K
   </div>
 </div>
 
@@ -609,30 +652,51 @@ age                 █████             0.05
 
 # The beeswarm — matters *how* and *for whom*
 
-```text
-                  pushes toward ≤50K   |   pushes toward >50K
+<svg width="100%" height="200" viewBox="0 0 600 200" style="margin-top:4px;">
+  <defs>
+    <linearGradient id="cgrad" x1="0" x2="1">
+      <stop offset="0" stop-color="#00E5EE"/>
+      <stop offset="1" stop-color="#FF6745"/>
+    </linearGradient>
+  </defs>
+  <line x1="320" y1="10" x2="320" y2="170" stroke="#FF6745" stroke-dasharray="3,3" stroke-width="1" opacity="0.6"/>
+  <text x="120" y="186" font-family="Inter" font-size="9" fill="#6B6A8A" text-anchor="middle">pushes ≤50K ←</text>
+  <text x="520" y="186" font-family="Inter" font-size="9" fill="#6B6A8A" text-anchor="middle">→ pushes >50K</text>
+  <text x="320" y="186" font-family="Inter" font-size="9" fill="#FF6745" text-anchor="middle" font-weight="600">SHAP = 0</text>
 
-capital-gain      • • • •              |   • • ● ● ● ● ● ●
-marital_Married   • • • •              |   ● ● ● ● ● ●
-age               • • •                |   ● ● ●
-hours-per-week    • •                  |   ● ● ●
-```
+  <text x="0" y="26" font-family="Inter" font-size="10" fill="#B0AFCC">capital-gain</text>
+  <circle cx="260" cy="24" r="3" fill="#00E5EE" opacity="0.6"/><circle cx="275" cy="20" r="3" fill="#00E5EE" opacity="0.6"/><circle cx="290" cy="24" r="3" fill="#2A9FE0" opacity="0.7"/><circle cx="308" cy="22" r="3" fill="#7657FF" opacity="0.7"/>
+  <circle cx="360" cy="24" r="4" fill="#FF6745"/><circle cx="395" cy="20" r="4" fill="#FF6745"/><circle cx="430" cy="24" r="4" fill="#FF6745"/><circle cx="475" cy="22" r="4" fill="#FF6745"/><circle cx="510" cy="24" r="4" fill="#FF6745"/><circle cx="545" cy="20" r="4" fill="#FF6745"/>
 
-<div style="display:flex;gap:14px;margin-top:6px;">
-  <div style="flex:1;background:#252540;border:1px solid #2E2E50;border-radius:8px;padding:10px 14px;font-size:0.68em;color:#B0AFCC;">
-    <strong>Each dot</strong> — one person
-  </div>
-  <div style="flex:1;background:#252540;border:1px solid #2E2E50;border-radius:8px;padding:10px 14px;font-size:0.68em;color:#B0AFCC;">
-    <strong>Horizontal position</strong> — SHAP value
-  </div>
-  <div style="flex:1;background:#252540;border:1px solid #2E2E50;border-radius:8px;padding:10px 14px;font-size:0.68em;color:#B0AFCC;">
-    <strong>Color</strong> — low (blue) vs high (red) feature value
-  </div>
+  <text x="0" y="60" font-family="Inter" font-size="10" fill="#B0AFCC">marital_Married</text>
+  <circle cx="265" cy="58" r="3" fill="#00E5EE" opacity="0.6"/><circle cx="285" cy="54" r="3" fill="#00E5EE" opacity="0.6"/><circle cx="305" cy="58" r="3" fill="#2A9FE0" opacity="0.6"/>
+  <circle cx="355" cy="58" r="4" fill="#FF6745"/><circle cx="385" cy="54" r="4" fill="#FF6745"/><circle cx="420" cy="58" r="4" fill="#FF6745"/><circle cx="455" cy="54" r="4" fill="#FF6745"/><circle cx="485" cy="58" r="4" fill="#FF6745"/>
+
+  <text x="0" y="94" font-family="Inter" font-size="10" fill="#B0AFCC">age</text>
+  <circle cx="280" cy="92" r="3" fill="#00E5EE" opacity="0.6"/><circle cx="300" cy="88" r="3" fill="#2A9FE0" opacity="0.6"/>
+  <circle cx="345" cy="92" r="3.5" fill="#FF8A6F"/><circle cx="375" cy="88" r="3.5" fill="#FF6745"/><circle cx="405" cy="92" r="3.5" fill="#FF6745"/>
+
+  <text x="0" y="128" font-family="Inter" font-size="10" fill="#B0AFCC">hours-per-week</text>
+  <circle cx="290" cy="126" r="3" fill="#00E5EE" opacity="0.6"/><circle cx="308" cy="122" r="3" fill="#2A9FE0" opacity="0.6"/>
+  <circle cx="345" cy="126" r="3.5" fill="#FF8A6F"/><circle cx="370" cy="122" r="3.5" fill="#FF6745"/><circle cx="398" cy="126" r="3.5" fill="#FF6745"/>
+
+  <text x="0" y="162" font-family="Inter" font-size="10" fill="#B0AFCC">gender_Female</text>
+  <circle cx="250" cy="160" r="3.5" fill="#FF8A6F"/><circle cx="275" cy="156" r="3.5" fill="#FF6745"/><circle cx="295" cy="160" r="3.5" fill="#FF6745"/>
+  <circle cx="338" cy="160" r="3" fill="#00E5EE" opacity="0.6"/>
+
+  <rect x="460" y="0" width="140" height="8" fill="url(#cgrad)" rx="2"/>
+  <text x="460" y="-2" font-family="Inter" font-size="8" fill="#6B6A8A">feature value</text>
+  <text x="460" y="18" font-family="Inter" font-size="8" fill="#00E5EE">low</text>
+  <text x="600" y="18" font-family="Inter" font-size="8" fill="#FF6745" text-anchor="end">high</text>
+</svg>
+
+<div style="display:flex;gap:12px;margin-top:-4px;">
+  <div style="flex:1;background:#252540;border:1px solid #2E2E50;border-radius:8px;padding:8px 12px;font-size:0.64em;color:#B0AFCC;"><strong>Each dot</strong> = one person</div>
+  <div style="flex:1;background:#252540;border:1px solid #2E2E50;border-radius:8px;padding:8px 12px;font-size:0.64em;color:#B0AFCC;"><strong>X position</strong> = SHAP value</div>
+  <div style="flex:1;background:#252540;border:1px solid #2E2E50;border-radius:8px;padding:8px 12px;font-size:0.64em;color:#B0AFCC;"><strong>Color</strong> = low (cyan) / high (orange)</div>
 </div>
 
-<br>
-
-*High capital-gain values clearly push toward >50K. High gender_Female values slightly push toward ≤50K — worth an audit.*
+*High capital-gain → >50K. gender_Female slightly pushes toward ≤50K — **worth an audit**.*
 
 ---
 
@@ -670,29 +734,42 @@ for age         • •
 
 # The force plot — one specific decision
 
-```text
-base value                                          f(x)
-   ▼                                                 ▼
-[ 0.24 ] ←← blue blocks ←←   ←← → →   →→ red blocks →→ [ 0.83 ]
+<svg width="100%" height="170" viewBox="0 0 620 170" style="margin-top:4px;">
+  <text x="40" y="16" font-family="Work Sans" font-size="10" fill="#6B6A8A" font-weight="600">base value</text>
+  <text x="40" y="30" font-family="Work Sans" font-size="14" fill="#B0AFCC" font-weight="700">0.24</text>
+  <text x="580" y="16" font-family="Work Sans" font-size="10" fill="#FF6745" font-weight="600" text-anchor="end">f(x)</text>
+  <text x="580" y="30" font-family="Work Sans" font-size="14" fill="#FF6745" font-weight="700" text-anchor="end">0.83</text>
 
-        push toward ≤50K               push toward >50K
-```
+  <line x1="20" y1="50" x2="600" y2="50" stroke="#2E2E50" stroke-width="1"/>
+  <polygon points="85,45 85,55 90,50" fill="#B0AFCC"/>
+  <polygon points="540,45 540,55 535,50" fill="#FF6745"/>
 
-<div style="display:flex;gap:14px;margin-top:8px;">
-  <div style="flex:1;background:rgba(239,68,68,0.1);border:1px solid #ef4444;border-radius:8px;padding:10px 14px;font-size:0.7em;color:#E8E7E1;">
-    🟥 <strong>Red blocks</strong> push the prediction up
-  </div>
-  <div style="flex:1;background:rgba(34,197,94,0.1);border:1px solid #22c55e;border-radius:8px;padding:10px 14px;font-size:0.7em;color:#E8E7E1;">
-    🟦 <strong>Blue blocks</strong> push the prediction down
-  </div>
-  <div style="flex:1;background:#252540;border:1px solid #2E2E50;border-radius:8px;padding:10px 14px;font-size:0.7em;color:#B0AFCC;">
-    <strong>Block width</strong> = strength of contribution
-  </div>
+  <rect x="90" y="60" width="80" height="32" fill="#22c55e" opacity="0.85" rx="2"/>
+  <text x="130" y="80" font-family="Inter" font-size="9" fill="#0A3318" text-anchor="middle" font-weight="600">age=28</text>
+  <rect x="170" y="60" width="50" height="32" fill="#22c55e" opacity="0.5" rx="2"/>
+  <text x="195" y="80" font-family="Inter" font-size="9" fill="#E8E7E1" text-anchor="middle">hours=35</text>
+
+  <rect x="220" y="60" width="110" height="32" fill="#FF6745" opacity="0.5" rx="2"/>
+  <text x="275" y="80" font-family="Inter" font-size="9" fill="#E8E7E1" text-anchor="middle">educ=14</text>
+  <rect x="330" y="60" width="80" height="32" fill="#FF6745" opacity="0.75" rx="2"/>
+  <text x="370" y="80" font-family="Inter" font-size="9" fill="#140603" text-anchor="middle" font-weight="600">married=1</text>
+  <rect x="410" y="60" width="130" height="32" fill="#FF6745" rx="2"/>
+  <text x="475" y="80" font-family="Inter" font-size="9" fill="#FFFFFF" text-anchor="middle" font-weight="700">capital-gain=8500</text>
+
+  <text x="130" y="108" font-family="Inter" font-size="9" fill="#22c55e" text-anchor="middle">pushes ≤50K</text>
+  <text x="475" y="108" font-family="Inter" font-size="9" fill="#FF6745" text-anchor="middle">pushes >50K</text>
+
+  <text x="310" y="140" font-family="Work Sans" font-size="10" fill="#B0AFCC" text-anchor="middle" font-style="italic">0.24 + (−0.06) + (−0.02) + 0.09 + 0.18 + 0.40 = 0.83</text>
+  <text x="310" y="156" font-family="Inter" font-size="9" fill="#6B6A8A" text-anchor="middle">expected_value + Σ SHAP = final prediction</text>
+</svg>
+
+<div style="display:flex;gap:12px;margin-top:2px;">
+  <div style="flex:1;background:rgba(239,68,68,0.1);border:1px solid #FF6745;border-radius:8px;padding:8px 12px;font-size:0.64em;color:#E8E7E1;"><strong style="color:#FF6745;">Red blocks</strong> → push up</div>
+  <div style="flex:1;background:rgba(34,197,94,0.1);border:1px solid #22c55e;border-radius:8px;padding:8px 12px;font-size:0.64em;color:#E8E7E1;"><strong style="color:#22c55e;">Green blocks</strong> → push down</div>
+  <div style="flex:1;background:#252540;border:1px solid #2E2E50;border-radius:8px;padding:8px 12px;font-size:0.64em;color:#B0AFCC;"><strong>Block width</strong> = strength of contribution</div>
 </div>
 
-<br>
-
-*Global plots tell you what matters on average. Force plots tell you **why this person** got this prediction.*
+*The force plot tells you **why this specific person** got this prediction.*
 
 ---
 
@@ -745,8 +822,12 @@ base value                                          f(x)
 
 <br>
 
-<div style="background:rgba(221,255,69,0.07);border:1px solid #DDFF45;border-radius:10px;padding:12px 18px;font-size:0.72em;color:#E8E7E1;">
+<div style="background:rgba(221,255,69,0.07);border:1px solid #DDFF45;border-radius:10px;padding:10px 16px;font-size:0.7em;color:#E8E7E1;">
 ✓ Same workflow — <code>TreeExplainer</code>, <code>shap_values</code>, force plots. But we slow down on two new concepts.
+</div>
+
+<div style="background:rgba(0,229,238,0.07);border:1px solid #00E5EE;border-radius:8px;padding:8px 14px;margin-top:8px;font-size:0.64em;color:#E8E7E1;">
+<strong style="color:#00E5EE;">In the notebook →</strong> <code>xgb.XGBClassifier(objective='multi:softprob', num_class=6, eval_metric='mlogloss')</code> — 6 softmax outputs, one per emotion.
 </div>
 
 ---
