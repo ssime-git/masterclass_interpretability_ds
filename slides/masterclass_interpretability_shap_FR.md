@@ -29,7 +29,7 @@ style: |
     color: var(--light);
     font-family: 'Inter', sans-serif;
     font-weight: 400;
-    padding: 52px 72px;
+    padding: 48px 72px 70px 72px;
     line-height: 1.55;
   }
 
@@ -70,8 +70,24 @@ style: |
     justify-content: center;
     align-items: center;
     text-align: center;
-    background: radial-gradient(ellipse at 30% 70%, #2A1F40 0%, var(--navy) 65%);
+    background:
+      radial-gradient(circle at 85% 15%, rgba(255,103,69,0.18) 0%, transparent 35%),
+      radial-gradient(circle at 15% 85%, rgba(0,229,238,0.14) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(118,87,255,0.10) 0%, transparent 55%),
+      radial-gradient(ellipse at 30% 70%, #2A1F40 0%, var(--navy) 65%);
   }
+  section.lead::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(221,255,69,0.06) 0%, transparent 2%),
+      radial-gradient(circle at 70% 20%, rgba(0,229,238,0.08) 0%, transparent 2%),
+      radial-gradient(circle at 40% 80%, rgba(255,103,69,0.08) 0%, transparent 2%),
+      radial-gradient(circle at 85% 70%, rgba(118,87,255,0.08) 0%, transparent 2%);
+    background-size: 120px 120px, 180px 180px, 150px 150px, 200px 200px;
+    pointer-events: none;
+  }
+  section.lead > * { position: relative; z-index: 1; }
   section.lead h1 { font-size: 3em; }
   section.lead h2 { color: var(--body); font-size: 1.05em; max-width: 680px; }
 
@@ -79,12 +95,37 @@ style: |
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: var(--orange);
+    background:
+      linear-gradient(135deg, var(--orange) 0%, #E04B2E 100%);
     color: var(--light);
+    position: relative;
+    overflow: hidden;
   }
+  section.transition::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  section.transition::after {
+    content: '';
+    position: absolute;
+    bottom: -120px; left: -60px;
+    width: 360px; height: 360px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(26,26,51,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  section.transition > * { position: relative; z-index: 1; }
   section.transition h1 { color: var(--light); font-size: 2.8em; }
-  section.transition h2 { color: rgba(255,255,255,0.8); font-weight: 400; }
-  section.transition h3 { color: rgba(255,255,255,0.65); }
+  section.transition h2 { color: rgba(255,255,255,0.85); font-weight: 400; }
+  section.transition h3 { color: rgba(255,255,255,0.7); }
+  section.transition footer { display: none; }
+  section.transition header { display: none; }
+  section.lead footer { display: none; }
 
   section.dark-lime h1 { color: var(--lime); }
 
@@ -133,7 +174,7 @@ style: |
   .tag-cyan   { background: rgba(0,229,238,0.15);  color: var(--cyan);   border: 1px solid var(--cyan); }
   .tag-violet { background: rgba(118,87,255,0.2);  color: var(--violet); border: 1px solid var(--violet); }
 
-header: 'Masterclass · Interprétabilité'
+header: '![w:80](./assets/Liora_Logo_White.svg)'
 footer: 'Interprétabilité des modèles avec SHAP · Masterclass Débutant'
 ---
 
@@ -141,6 +182,7 @@ footer: 'Interprétabilité des modèles avec SHAP · Masterclass Débutant'
 <!-- _paginate: false -->
 <!-- _header: '' -->
 <!-- _footer: '' -->
+<!-- _backgroundImage: "linear-gradient(135deg, rgba(26,26,51,0.92) 0%, rgba(42,31,64,0.88) 100%), url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1600&q=70&auto=format&fit=crop')" -->
 
 ### Masterclass Débutant
 
@@ -173,33 +215,15 @@ footer: 'Interprétabilité des modèles avec SHAP · Masterclass Débutant'
 
 ---
 
+<!-- _backgroundImage: "linear-gradient(90deg, #1A1A33 0%, #1A1A33 55%, rgba(26,26,51,0.85) 75%, rgba(26,26,51,0.6) 100%), url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=70&auto=format&fit=crop')" -->
+
 ### Le problème
 
 # Un modèle à 98% peut se tromper
 
 <div style="display:flex;gap:18px;margin-top:8px;align-items:stretch;">
   <div style="flex:0 0 200px;background:#252540;border:1px solid #2E2E50;border-radius:10px;padding:10px;display:flex;align-items:center;justify-content:center;">
-    <svg viewBox="0 0 200 160" width="100%" height="140">
-      <!-- neige arrière-plan -->
-      <rect x="0" y="0" width="200" height="160" fill="#E8E7E1" rx="6"/>
-      <circle cx="30" cy="30" r="3" fill="#FFFFFF"/><circle cx="80" cy="20" r="3" fill="#FFFFFF"/><circle cx="150" cy="35" r="3" fill="#FFFFFF"/><circle cx="180" cy="70" r="3" fill="#FFFFFF"/><circle cx="20" cy="80" r="3" fill="#FFFFFF"/><circle cx="170" cy="110" r="3" fill="#FFFFFF"/>
-      <!-- sol -->
-      <path d="M 0 130 Q 100 115 200 130 L 200 160 L 0 160 Z" fill="#FFFFFF"/>
-      <!-- husky silhouette -->
-      <ellipse cx="100" cy="115" rx="38" ry="22" fill="#6B6A8A"/>
-      <circle cx="70" cy="95" r="16" fill="#6B6A8A"/>
-      <polygon points="60,82 65,72 72,85" fill="#6B6A8A"/>
-      <polygon points="78,82 73,72 68,85" fill="#6B6A8A"/>
-      <circle cx="65" cy="97" r="1.5" fill="#FFFFFF"/>
-      <circle cx="72" cy="97" r="1.5" fill="#FFFFFF"/>
-      <polygon points="58,100 62,102 58,104" fill="#1A1A33"/>
-      <rect x="128" y="108" width="3" height="20" fill="#6B6A8A"/>
-      <rect x="88" y="125" width="3" height="18" fill="#6B6A8A"/>
-      <rect x="108" y="125" width="3" height="18" fill="#6B6A8A"/>
-      <!-- encadré rouge sur la neige -->
-      <rect x="8" y="8" width="184" height="104" fill="none" stroke="#FF6745" stroke-width="2" stroke-dasharray="5,3" rx="4"/>
-      <text x="14" y="22" font-family="Work Sans" font-size="9" font-weight="700" fill="#FF6745">← le modèle regarde ICI</text>
-    </svg>
+    <svg viewBox="0 0 200 160" width="100%" height="140"><rect x="0" y="0" width="200" height="160" fill="#E8E7E1" rx="6"/><circle cx="30" cy="30" r="3" fill="#FFFFFF"/><circle cx="80" cy="20" r="3" fill="#FFFFFF"/><circle cx="150" cy="35" r="3" fill="#FFFFFF"/><circle cx="180" cy="70" r="3" fill="#FFFFFF"/><circle cx="20" cy="80" r="3" fill="#FFFFFF"/><circle cx="170" cy="110" r="3" fill="#FFFFFF"/><path d="M 0 130 Q 100 115 200 130 L 200 160 L 0 160 Z" fill="#FFFFFF"/><ellipse cx="100" cy="115" rx="38" ry="22" fill="#6B6A8A"/><circle cx="70" cy="95" r="16" fill="#6B6A8A"/><polygon points="60,82 65,72 72,85" fill="#6B6A8A"/><polygon points="78,82 73,72 68,85" fill="#6B6A8A"/><circle cx="65" cy="97" r="1.5" fill="#FFFFFF"/><circle cx="72" cy="97" r="1.5" fill="#FFFFFF"/><polygon points="58,100 62,102 58,104" fill="#1A1A33"/><rect x="128" y="108" width="3" height="20" fill="#6B6A8A"/><rect x="88" y="125" width="3" height="18" fill="#6B6A8A"/><rect x="108" y="125" width="3" height="18" fill="#6B6A8A"/><rect x="8" y="8" width="184" height="104" fill="none" stroke="#FF6745" stroke-width="2" stroke-dasharray="5,3" rx="4"/><text x="14" y="22" font-family="Work Sans" font-size="9" font-weight="700" fill="#FF6745">← le modèle regarde ICI</text></svg>
   </div>
   <div style="flex:1;display:flex;flex-direction:column;gap:10px;">
     <div style="background:#252540;border:1px solid #2E2E50;border-left:3px solid #FF6745;border-radius:10px;padding:12px 16px;">
@@ -214,6 +238,8 @@ footer: 'Interprétabilité des modèles avec SHAP · Masterclass Débutant'
 </div>
 
 ---
+
+<!-- _backgroundImage: "linear-gradient(135deg, #1A1A33 0%, #1A1A33 60%, rgba(26,26,51,0.7) 100%), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600&q=70&auto=format&fit=crop')" -->
 
 ### Pourquoi ça compte
 
@@ -267,6 +293,7 @@ footer: 'Interprétabilité des modèles avec SHAP · Masterclass Débutant'
 <!-- _class: transition -->
 <!-- _paginate: false -->
 <!-- _header: '' -->
+<!-- _backgroundImage: "linear-gradient(135deg, rgba(255,103,69,0.88) 0%, rgba(224,75,46,0.92) 100%), url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=70&auto=format&fit=crop')" -->
 
 ### Partie 1
 
@@ -368,27 +395,25 @@ footer: 'Interprétabilité des modèles avec SHAP · Masterclass Débutant'
 
 # Feature importance & coefficients
 
-<div style="display:flex;gap:18px;margin-top:10px;">
-  <div style="flex:1;background:#252540;border:1px solid #2E2E50;border-radius:10px;padding:14px 18px;">
-    <div style="font-family:'Work Sans';font-weight:700;font-size:0.5em;text-transform:uppercase;letter-spacing:0.18em;color:#00E5EE;margin-bottom:8px;">Importance arbres</div>
-    <p style="font-size:0.68em;color:#B0AFCC;margin:0 0 6px 0;line-height:1.55;">À quelle fréquence la variable est utilisée pour splitter et combien elle réduit l'impureté.</p>
-    <div style="font-size:0.65em;color:#FF6745;"><strong>Limite</strong> — liée à l'arbre exact, instable, biaisée.</div>
+<div style="display:flex;gap:14px;margin-top:8px;">
+  <div style="flex:1;background:#252540;border:1px solid #2E2E50;border-radius:10px;padding:12px 16px;">
+    <div style="font-family:'Work Sans';font-weight:700;font-size:0.5em;text-transform:uppercase;letter-spacing:0.18em;color:#00E5EE;margin-bottom:6px;">Importance arbres</div>
+    <p style="font-size:0.64em;color:#B0AFCC;margin:0 0 4px 0;line-height:1.5;">Fréquence d'utilisation pour splitter × réduction d'impureté.</p>
+    <div style="font-size:0.6em;color:#FF6745;"><strong>Limite</strong> — liée à l'arbre exact, instable.</div>
   </div>
-  <div style="flex:1;background:#252540;border:1px solid #2E2E50;border-radius:10px;padding:14px 18px;">
-    <div style="font-family:'Work Sans';font-weight:700;font-size:0.5em;text-transform:uppercase;letter-spacing:0.18em;color:#00E5EE;margin-bottom:8px;">Coefficients linéaires</div>
-    <p style="font-size:0.68em;color:#B0AFCC;margin:0 0 6px 0;line-height:1.55;">Positif = pousse vers classe 1. Négatif = pousse vers classe 0.</p>
-    <div style="font-size:0.65em;color:#FF6745;"><strong>Limite</strong> — suppose la linéarité, sensible à l'échelle, corrélations masquées.</div>
+  <div style="flex:1;background:#252540;border:1px solid #2E2E50;border-radius:10px;padding:12px 16px;">
+    <div style="font-family:'Work Sans';font-weight:700;font-size:0.5em;text-transform:uppercase;letter-spacing:0.18em;color:#00E5EE;margin-bottom:6px;">Coefficients linéaires</div>
+    <p style="font-size:0.64em;color:#B0AFCC;margin:0 0 4px 0;line-height:1.5;">Positif = pousse vers classe 1 · négatif = vers classe 0.</p>
+    <div style="font-size:0.6em;color:#FF6745;"><strong>Limite</strong> — suppose la linéarité, sensible à l'échelle.</div>
   </div>
 </div>
 
-<br>
-
-<div style="background:rgba(255,103,69,0.08);border:1px solid #FF6745;border-radius:10px;padding:10px 16px;font-size:0.7em;color:#E8E7E1;">
-⚠ Si une variable sensible comme <em>gender_Female</em> apparaît importante, c'est un signal pour <strong>auditer</strong> le modèle — pas pour essentialiser les personnes.
+<div style="background:rgba(255,103,69,0.08);border:1px solid #FF6745;border-radius:8px;padding:8px 14px;margin-top:8px;font-size:0.64em;color:#E8E7E1;">
+⚠ Une variable sensible comme <em>gender_Female</em> en haut du classement = signal pour <strong>auditer</strong> le modèle.
 </div>
 
-<div style="background:rgba(0,229,238,0.07);border:1px solid #00E5EE;border-radius:8px;padding:8px 14px;margin-top:8px;font-size:0.65em;color:#E8E7E1;">
-<strong style="color:#00E5EE;">Dans le notebook →</strong> <code>tree_clf.feature_importances_</code> pour l'arbre · <code>pipeline['logistic_regression'].coef_[0]</code> pour la régression logistique (avec <code>StandardScaler</code> en amont pour comparer les coefficients).
+<div style="background:rgba(0,229,238,0.07);border:1px solid #00E5EE;border-radius:8px;padding:6px 14px;margin-top:6px;font-size:0.6em;color:#E8E7E1;">
+<strong style="color:#00E5EE;">Dans le notebook →</strong> <code>tree_clf.feature_importances_</code> · <code>pipeline['logistic_regression'].coef_[0]</code> (avec <code>StandardScaler</code>).
 </div>
 
 ---
@@ -456,6 +481,7 @@ footer: 'Interprétabilité des modèles avec SHAP · Masterclass Débutant'
 <!-- _class: transition -->
 <!-- _paginate: false -->
 <!-- _header: '' -->
+<!-- _backgroundImage: "linear-gradient(135deg, rgba(255,103,69,0.88) 0%, rgba(224,75,46,0.92) 100%), url('https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=1600&q=70&auto=format&fit=crop')" -->
 
 ### Partie 2
 
@@ -465,6 +491,8 @@ footer: 'Interprétabilité des modèles avec SHAP · Masterclass Débutant'
 ## Un langage unifié pour tout modèle
 
 ---
+
+<!-- _backgroundImage: "linear-gradient(135deg, #1A1A33 0%, #1A1A33 55%, rgba(26,26,51,0.75) 100%), url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1600&q=70&auto=format&fit=crop')" -->
 
 ### L'idée centrale
 
@@ -615,27 +643,22 @@ personne 3        +0.02        -0.01        -0.05
   <rect x="130" y="4" width="360" height="14" rx="3" fill="#2E2E50"/>
   <rect x="130" y="4" width="320" height="14" rx="3" fill="#FF6745"/>
   <text x="456" y="14" font-family="Work Sans" font-size="10" font-weight="700" fill="#FF6745">0.18</text>
-
   <text x="0" y="42" font-family="Inter" font-size="10" fill="#B0AFCC">marital_Married</text>
   <rect x="130" y="32" width="360" height="14" rx="3" fill="#2E2E50"/>
   <rect x="130" y="32" width="240" height="14" rx="3" fill="#DDFF45"/>
   <text x="376" y="42" font-family="Work Sans" font-size="10" font-weight="700" fill="#DDFF45">0.12</text>
-
   <text x="0" y="70" font-family="Inter" font-size="10" fill="#B0AFCC">educational-num</text>
   <rect x="130" y="60" width="360" height="14" rx="3" fill="#2E2E50"/>
   <rect x="130" y="60" width="160" height="14" rx="3" fill="#00E5EE"/>
   <text x="296" y="70" font-family="Work Sans" font-size="10" font-weight="700" fill="#00E5EE">0.08</text>
-
   <text x="0" y="98" font-family="Inter" font-size="10" fill="#B0AFCC">hours-per-week</text>
   <rect x="130" y="88" width="360" height="14" rx="3" fill="#2E2E50"/>
   <rect x="130" y="88" width="120" height="14" rx="3" fill="#7657FF"/>
   <text x="256" y="98" font-family="Work Sans" font-size="10" font-weight="700" fill="#7657FF">0.06</text>
-
   <text x="0" y="126" font-family="Inter" font-size="10" fill="#B0AFCC">age</text>
   <rect x="130" y="116" width="360" height="14" rx="3" fill="#2E2E50"/>
   <rect x="130" y="116" width="100" height="14" rx="3" fill="#C445FF"/>
   <text x="236" y="126" font-family="Work Sans" font-size="10" font-weight="700" fill="#C445FF">0.05</text>
-
   <line x1="130" y1="148" x2="490" y2="148" stroke="#2E2E50" stroke-width="1"/>
   <text x="128" y="164" font-family="Inter" font-size="9" fill="#6B6A8A" text-anchor="end">0</text>
   <text x="490" y="164" font-family="Inter" font-size="9" fill="#6B6A8A" text-anchor="end">|SHAP| moyenne →</text>
@@ -667,27 +690,21 @@ personne 3        +0.02        -0.01        -0.05
   <text x="120" y="186" font-family="Inter" font-size="9" fill="#6B6A8A" text-anchor="middle">pousse ≤50K ←</text>
   <text x="520" y="186" font-family="Inter" font-size="9" fill="#6B6A8A" text-anchor="middle">→ pousse >50K</text>
   <text x="320" y="186" font-family="Inter" font-size="9" fill="#FF6745" text-anchor="middle" font-weight="600">SHAP = 0</text>
-
   <text x="0" y="26" font-family="Inter" font-size="10" fill="#B0AFCC">capital-gain</text>
   <circle cx="260" cy="24" r="3" fill="#00E5EE" opacity="0.6"/><circle cx="275" cy="20" r="3" fill="#00E5EE" opacity="0.6"/><circle cx="290" cy="24" r="3" fill="#2A9FE0" opacity="0.7"/><circle cx="308" cy="22" r="3" fill="#7657FF" opacity="0.7"/>
   <circle cx="360" cy="24" r="4" fill="#FF6745"/><circle cx="395" cy="20" r="4" fill="#FF6745"/><circle cx="430" cy="24" r="4" fill="#FF6745"/><circle cx="475" cy="22" r="4" fill="#FF6745"/><circle cx="510" cy="24" r="4" fill="#FF6745"/><circle cx="545" cy="20" r="4" fill="#FF6745"/>
-
   <text x="0" y="60" font-family="Inter" font-size="10" fill="#B0AFCC">marital_Married</text>
   <circle cx="265" cy="58" r="3" fill="#00E5EE" opacity="0.6"/><circle cx="285" cy="54" r="3" fill="#00E5EE" opacity="0.6"/><circle cx="305" cy="58" r="3" fill="#2A9FE0" opacity="0.6"/>
   <circle cx="355" cy="58" r="4" fill="#FF6745"/><circle cx="385" cy="54" r="4" fill="#FF6745"/><circle cx="420" cy="58" r="4" fill="#FF6745"/><circle cx="455" cy="54" r="4" fill="#FF6745"/><circle cx="485" cy="58" r="4" fill="#FF6745"/>
-
   <text x="0" y="94" font-family="Inter" font-size="10" fill="#B0AFCC">age</text>
   <circle cx="280" cy="92" r="3" fill="#00E5EE" opacity="0.6"/><circle cx="300" cy="88" r="3" fill="#2A9FE0" opacity="0.6"/>
   <circle cx="345" cy="92" r="3.5" fill="#FF8A6F"/><circle cx="375" cy="88" r="3.5" fill="#FF6745"/><circle cx="405" cy="92" r="3.5" fill="#FF6745"/>
-
   <text x="0" y="128" font-family="Inter" font-size="10" fill="#B0AFCC">hours-per-week</text>
   <circle cx="290" cy="126" r="3" fill="#00E5EE" opacity="0.6"/><circle cx="308" cy="122" r="3" fill="#2A9FE0" opacity="0.6"/>
   <circle cx="345" cy="126" r="3.5" fill="#FF8A6F"/><circle cx="370" cy="122" r="3.5" fill="#FF6745"/><circle cx="398" cy="126" r="3.5" fill="#FF6745"/>
-
   <text x="0" y="162" font-family="Inter" font-size="10" fill="#B0AFCC">gender_Female</text>
   <circle cx="250" cy="160" r="3.5" fill="#FF8A6F"/><circle cx="275" cy="156" r="3.5" fill="#FF6745"/><circle cx="295" cy="160" r="3.5" fill="#FF6745"/>
   <circle cx="338" cy="160" r="3" fill="#00E5EE" opacity="0.6"/>
-
   <rect x="460" y="0" width="140" height="8" fill="url(#cgrad)" rx="2"/>
   <text x="460" y="-2" font-family="Inter" font-size="8" fill="#6B6A8A">valeur de la variable</text>
   <text x="460" y="18" font-family="Inter" font-size="8" fill="#00E5EE">basse</text>
@@ -743,26 +760,21 @@ pour age       • •
   <text x="40" y="30" font-family="Work Sans" font-size="14" fill="#B0AFCC" font-weight="700">0.24</text>
   <text x="580" y="16" font-family="Work Sans" font-size="10" fill="#FF6745" font-weight="600" text-anchor="end">f(x)</text>
   <text x="580" y="30" font-family="Work Sans" font-size="14" fill="#FF6745" font-weight="700" text-anchor="end">0.83</text>
-
   <line x1="20" y1="50" x2="600" y2="50" stroke="#2E2E50" stroke-width="1"/>
   <polygon points="85,45 85,55 90,50" fill="#B0AFCC"/>
   <polygon points="540,45 540,55 535,50" fill="#FF6745"/>
-
   <rect x="90" y="60" width="80" height="32" fill="#22c55e" opacity="0.85" rx="2"/>
   <text x="130" y="80" font-family="Inter" font-size="9" fill="#0A3318" text-anchor="middle" font-weight="600">age=28</text>
   <rect x="170" y="60" width="50" height="32" fill="#22c55e" opacity="0.5" rx="2"/>
   <text x="195" y="80" font-family="Inter" font-size="9" fill="#E8E7E1" text-anchor="middle">hours=35</text>
-
   <rect x="220" y="60" width="110" height="32" fill="#FF6745" opacity="0.5" rx="2"/>
   <text x="275" y="80" font-family="Inter" font-size="9" fill="#E8E7E1" text-anchor="middle">educ=14</text>
   <rect x="330" y="60" width="80" height="32" fill="#FF6745" opacity="0.75" rx="2"/>
   <text x="370" y="80" font-family="Inter" font-size="9" fill="#140603" text-anchor="middle" font-weight="600">married=1</text>
   <rect x="410" y="60" width="130" height="32" fill="#FF6745" rx="2"/>
   <text x="475" y="80" font-family="Inter" font-size="9" fill="#FFFFFF" text-anchor="middle" font-weight="700">capital-gain=8500</text>
-
   <text x="130" y="108" font-family="Inter" font-size="9" fill="#22c55e" text-anchor="middle">pousse ≤50K</text>
   <text x="475" y="108" font-family="Inter" font-size="9" fill="#FF6745" text-anchor="middle">pousse >50K</text>
-
   <text x="310" y="140" font-family="Work Sans" font-size="10" fill="#B0AFCC" text-anchor="middle" font-style="italic">0.24 + (−0.06) + (−0.02) + 0.09 + 0.18 + 0.40 = 0.83</text>
   <text x="310" y="156" font-family="Inter" font-size="9" fill="#6B6A8A" text-anchor="middle">expected_value + Σ SHAP = prédiction finale</text>
 </svg>
@@ -777,19 +789,19 @@ pour age       • •
 
 ---
 
+<!-- _backgroundImage: "linear-gradient(135deg, #1A1A33 0%, #1A1A33 60%, rgba(26,26,51,0.7) 100%), url('https://images.unsplash.com/photo-1507146153580-69a1fe6d8aa1?w=1600&q=70&auto=format&fit=crop')" -->
+
 ### Connaître les limites
 
-# SHAP est puissant — mais pas magique
+# SHAP est puissant — pas magique
 
 | Précaution | Ce que cela veut dire |
 |------------|-----------------------|
 | **Variables corrélées** | Le crédit peut se répartir entre jumelles de manière floue |
 | **Coût de calcul** | `TreeExplainer` est rapide — d'autres explainers peuvent être lents |
 | **Pas la causalité** | Une forte valeur SHAP est une <em>association</em>, pas une <strong>cause</strong> |
-| **Instabilité locale** | Des individus similaires peuvent avoir des explications visiblement différentes |
+| **Instabilité locale** | Des individus similaires → explications parfois différentes |
 | **Choix de l'explainer** | Différents explainers se comportent différemment selon les modèles |
-
-<br>
 
 > Utilisez SHAP comme un <strong>cadre structuré</strong> pour comprendre le modèle — pas comme une vérité absolue.
 
@@ -798,6 +810,7 @@ pour age       • •
 <!-- _class: transition -->
 <!-- _paginate: false -->
 <!-- _header: '' -->
+<!-- _backgroundImage: "linear-gradient(135deg, rgba(255,103,69,0.88) 0%, rgba(224,75,46,0.92) 100%), url('https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1600&q=70&auto=format&fit=crop')" -->
 
 ### Partie 3
 
@@ -826,12 +839,12 @@ pour age       • •
 
 <br>
 
-<div style="background:rgba(221,255,69,0.07);border:1px solid #DDFF45;border-radius:10px;padding:10px 16px;font-size:0.7em;color:#E8E7E1;">
-✓ Même workflow — <code>TreeExplainer</code>, <code>shap_values</code>, force plots. Mais on ralentit sur deux concepts nouveaux.
+<div style="background:rgba(221,255,69,0.07);border:1px solid #DDFF45;border-radius:8px;padding:8px 14px;font-size:0.64em;color:#E8E7E1;">
+✓ Même workflow — <code>TreeExplainer</code>, <code>shap_values</code>, force plots. Deux concepts nouveaux seulement.
 </div>
 
-<div style="background:rgba(0,229,238,0.07);border:1px solid #00E5EE;border-radius:8px;padding:8px 14px;margin-top:8px;font-size:0.64em;color:#E8E7E1;">
-<strong style="color:#00E5EE;">Dans le notebook →</strong> <code>xgb.XGBClassifier(objective='multi:softprob', num_class=6, eval_metric='mlogloss')</code> — 6 sorties softmax, une par émotion.
+<div style="background:rgba(0,229,238,0.07);border:1px solid #00E5EE;border-radius:8px;padding:6px 14px;margin-top:6px;font-size:0.6em;color:#E8E7E1;">
+<strong style="color:#00E5EE;">Dans le notebook →</strong> <code>xgb.XGBClassifier(objective='multi:softprob', num_class=6)</code>
 </div>
 
 ---
@@ -911,6 +924,7 @@ shap_values
 <!-- _class: transition -->
 <!-- _paginate: false -->
 <!-- _header: '' -->
+<!-- _backgroundImage: "linear-gradient(135deg, rgba(255,103,69,0.88) 0%, rgba(224,75,46,0.92) 100%), url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1600&q=70&auto=format&fit=crop')" -->
 
 ### Dernière Partie
 
