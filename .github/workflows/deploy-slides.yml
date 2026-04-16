@@ -1,0 +1,119 @@
+name: Deploy Marp Slides to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'slides/**/*.md'
+      - '.github/workflows/deploy-slides.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Marp CLI
+        run: npm install -g @marp-team/marp-cli
+
+      - name: Build slides
+        run: |
+          mkdir -p dist
+
+          # EN deck → HTML + PDF
+          marp slides/masterclass_interpretability_shap_EN.md \
+            --html --allow-local-files \
+            -o dist/masterclass_interpretability_shap_EN.html
+
+          marp slides/masterclass_interpretability_shap_EN.md \
+            --html --allow-local-files --pdf \
+            -o dist/masterclass_interpretability_shap_EN.pdf
+
+          # FR deck → HTML + PDF
+          marp slides/masterclass_interpretability_shap_FR.md \
+            --html --allow-local-files \
+            -o dist/masterclass_interpretability_shap_FR.html
+
+          marp slides/masterclass_interpretability_shap_FR.md \
+            --html --allow-local-files --pdf \
+            -o dist/masterclass_interpretability_shap_FR.pdf
+
+      - name: Create index page
+        run: |
+          cat > dist/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Masterclass — Model Interpretability with SHAP</title>
+            <style>
+              body { font-family: 'Inter', system-ui, sans-serif; background: #1A1A33; color: #E8E7E1; margin: 0; padding: 48px; }
+              h1 { font-size: 2em; color: #fff; margin-bottom: 0.2em; }
+              p { color: #B0AFCC; margin-bottom: 2em; }
+              .grid { display: flex; gap: 24px; flex-wrap: wrap; }
+              .card { background: #252540; border: 1px solid #2E2E50; border-radius: 12px; padding: 24px 28px; flex: 1; min-width: 260px; }
+              .card h2 { font-size: 1em; color: #fff; margin: 0 0 8px 0; }
+              .card p { font-size: 0.85em; color: #B0AFCC; margin: 0 0 16px 0; }
+              .lang { font-size: 0.65em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; padding: 2px 8px; border-radius: 4px; margin-bottom: 12px; display: inline-block; }
+              .en { background: rgba(0,229,238,0.15); color: #00E5EE; border: 1px solid #00E5EE; }
+              .fr { background: rgba(221,255,69,0.15); color: #DDFF45; border: 1px solid #DDFF45; }
+              a.btn { display: inline-block; padding: 8px 16px; border-radius: 6px; font-size: 0.8em; font-weight: 600; text-decoration: none; margin-right: 8px; }
+              a.html { background: #FF6745; color: #fff; }
+              a.pdf { background: #252540; color: #B0AFCC; border: 1px solid #2E2E50; }
+            </style>
+          </head>
+          <body>
+            <h1>Model Interpretability with SHAP</h1>
+            <p>Beginner masterclass — open the black box and understand <em>why</em> your model predicts what it predicts.</p>
+            <div class="grid">
+              <div class="card">
+                <span class="lang en">English</span>
+                <h2>Masterclass · Interpretability</h2>
+                <p>Decision trees, feature importance, SHAP summary plots, force plots, multiclass text classification.</p>
+                <a class="btn html" href="masterclass_interpretability_shap_EN.html">View slides</a>
+                <a class="btn pdf" href="masterclass_interpretability_shap_EN.pdf">Download PDF</a>
+              </div>
+              <div class="card">
+                <span class="lang fr">Français</span>
+                <h2>Masterclass · Interprétabilité</h2>
+                <p>Arbres de décision, feature importance, SHAP summary plots, force plots, classification multi-classes.</p>
+                <a class="btn html" href="masterclass_interpretability_shap_FR.html">Voir les slides</a>
+                <a class="btn pdf" href="masterclass_interpretability_shap_FR.pdf">Télécharger PDF</a>
+              </div>
+            </div>
+          </body>
+          </html>
+          EOF
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
