@@ -175,7 +175,7 @@ style: |
   .tag-violet { background: rgba(118,87,255,0.2);  color: var(--violet); border: 1px solid var(--violet); }
 
 header: '![w:80](./assets/Liora_Logo_White.svg)'
-footer: 'Model Interpretability with SHAP · Beginner Masterclass'
+footer: 'Model Interpretability with SHAP · Parcours : Data Scientist'
 ---
 
 <!-- _class: lead -->
@@ -184,7 +184,7 @@ footer: 'Model Interpretability with SHAP · Beginner Masterclass'
 <!-- _footer: '' -->
 <!-- _backgroundImage: "linear-gradient(135deg, rgba(26,26,51,0.92) 0%, rgba(42,31,64,0.88) 100%), url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1600&q=70&auto=format&fit=crop')" -->
 
-### Beginner Masterclass
+### Parcours : Data Scientist
 
 # Model Interpretability
 # with SHAP
@@ -193,7 +193,7 @@ footer: 'Model Interpretability with SHAP · Beginner Masterclass'
 
 <br>
 
-<span class="tag tag-lime">Level: Beginner</span> &nbsp; <span class="tag tag-cyan">Duration: ~90 min</span>
+<span class="tag tag-lime">Parcours : Data Scientist</span> &nbsp; <span class="tag tag-cyan">Duration: ~90 min</span>
 
 ---
 
